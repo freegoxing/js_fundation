@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>调试示例</h1>
+
+
+    <textarea rows="15" cols="35">
+    三星S8,     110,50,5200
+    三星Note8,  123,30,6800
+
+    华为Mate10, 170,170,4100
+    华为P10,    167,57,3300
+
+    小米 6,     133,81,2200
+    小米 mix,   173,61,3200
+    </textarea>
+
+
+    <script>
+        function getSaleInfo(){
+            let value1 = document.querySelector('textarea').value
+            return value1
+        }
+
+        // 从输入框中获取销量记录文本
+        let content = getSaleInfo()
+
+        // 下面两个变量记录当前找到的销量最多的手机和卖出数量
+        // 初始值都是 null
+        let mostsoldphone = null
+        let mostsoldcount = null
+
+        for (let info of content.split('\n')){
+            info = info.trim()
+            // 去掉空行
+            if (info === '')
+                continue
+
+            let items = info.split(',')
+            // 销量在倒数第3列，获取销量信息
+            // 调试，把其转换为数字
+            let soldcount =  parseInt(items[2])
+            // 型号在 第1列，  获取型号信息
+            let phonetype =  items[0]
+
+            // 如果前面已经有销量最多的手机记录，和当前这款手机销量比较
+            if (mostsoldphone != null){
+                // 如果当前这款手机销量更高，把它置为最热卖手机
+                if (mostsoldcount < soldcount){
+                    mostsoldcount = soldcount
+                    mostsoldphone = phonetype
+                }
+            }
+
+                // 如果前面没有有销量最多的手机记录，说明这是第一条记录
+            // 暂时先把它置为最热卖手机
+            else{
+                mostsoldcount = soldcount
+                mostsoldphone = phonetype
+            }
+        }
+        alert(`最热卖手机是 ${mostsoldphone}, 销量是 ${mostsoldcount}`)
+
+    </script>
+</body>
+</html>
